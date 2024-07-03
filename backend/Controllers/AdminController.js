@@ -1,8 +1,10 @@
 import AdminModel from "../Models/AdminModel.js";
+import LoginSessionsModel from "../Models/LoginSessionsModel.js";
 import bcrypt from 'bcryptjs'
 import { config } from 'dotenv'
 import jwt from 'jsonwebtoken'
 import nodemailer from 'nodemailer'
+
 
 //---
 config()
@@ -101,6 +103,31 @@ const login = (req, res)=> {
     let email = req.body.email.trim()
     let password = req.body.password.trim()
 
+
+    //---detect operating system
+    // let userAgent = window.navigator.userAgent,
+    //     platform = window.navigator?.userAgentData?.platform || window.navigator.platform,
+    //     macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'],
+    //     windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'],
+    //     iosPlatforms = ['iPhone', 'iPad', 'iPod'],
+    //     os = null;
+
+    //     if (macosPlatforms.indexOf(platform) !== -1) {
+    //         os = 'Mac OS';
+    //     } else if (iosPlatforms.indexOf(platform) !== -1) {
+    //         os = 'iOS';
+    //     } else if (windowsPlatforms.indexOf(platform) !== -1) {
+    //         os = 'Windows';
+    //     } else if (/Android/.test(userAgent)) {
+    //         os = 'Android';
+    //     } else if (!os && /Linux/.test(platform)) {
+    //         os = 'Linux';
+    //     }
+    //---detect operating system
+
+    let device = 'Iphone'
+    let date_logined = new Date()
+
     const emailRegx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
     if(email == "" || password == "") {
@@ -112,6 +139,13 @@ const login = (req, res)=> {
             message: "Invalid email"
         })
     }
+
+
+    let session = new LoginSessionsModel({
+        email: email,
+        device: device,
+        date_logined: date_logined,
+    })
 
     AdminModel.findOne({$or: [{email: email}]})
         .then((user)=> {
@@ -130,6 +164,7 @@ const login = (req, res)=> {
                             message: "Login successfully",
                             token: token
                         })
+                        session.save()
                     }else{
                         res.json({
                             message: "Incorrect Password"
