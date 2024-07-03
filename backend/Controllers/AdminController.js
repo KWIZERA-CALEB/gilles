@@ -59,12 +59,12 @@ const add = (req, res)=> {
             })
             //---send email
             let transporter = nodemailer.createTransport({
-                host: "smtp.gmail.com",
-                port: 587,
+                host: process.env.EMAIL_HOST,
+                port: process.env.EMAIL_PORT,
                 secure: false,
                 auth: {
-                  user: "kwizeracaleb91@gmail.com",
-                  pass: "zojj xhxl jnmj tmsx",
+                  user: process.env.EMAIL_APP_USER,
+                  pass: process.env.EMAIL_APP_PASSWORD,
                 },
             });
 
