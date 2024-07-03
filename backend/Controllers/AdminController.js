@@ -2,6 +2,7 @@ import AdminModel from "../Models/AdminModel.js";
 import bcrypt from 'bcryptjs'
 import { config } from 'dotenv'
 import jwt from 'jsonwebtoken'
+import nodemailer from 'nodemailer'
 
 //---
 config()
@@ -54,6 +55,33 @@ const add = (req, res)=> {
             res.json({
                 message: "User registered"
             })
+            //---send email
+            let transporter = nodemailer.createTransport({
+                host: "smtp.gmail.com",
+                port: 587,
+                secure: false,
+                auth: {
+                  user: "kwizeracaleb91@gmail.com",
+                  pass: "zojj xhxl jnmj tmsx",
+                },
+            });
+
+            
+            let message = {
+                from: "Gilles Inc",
+                to: `${email}`,
+                subject: "Gilles Email Verification",
+                text: "This is a verification message for Gilles account",
+                html: `<p>${full_name}, It's a pleasure to have you on Gilles</p>`,
+            }
+
+            transporter.sendMail(message, (error, info) => {
+                if (error) {
+                  return console.log(error);
+                }
+                
+              })
+            //---send email
         })
         .catch((error)=> {
             console.log(error)
@@ -126,3 +154,7 @@ const login = (req, res)=> {
 
 
 export default { add, login }
+
+
+
+  

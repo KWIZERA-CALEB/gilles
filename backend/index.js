@@ -8,6 +8,7 @@ import SubscribersRoute from './Routes/SubscribersRoute.js'
 import FeedbackRoute from './Routes/FeedbackRoute.js'
 import AdminRoute from './Routes/AdminRoute.js'
 
+
 //---
 
 
@@ -18,7 +19,6 @@ app.use(bodyParser.json())
 config()
 
 //---
-
 
 
 //connect to database 

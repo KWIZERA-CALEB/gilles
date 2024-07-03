@@ -20,6 +20,10 @@ const AdminModel = new Schema({
         type: String,
         required: true
     },
+    verified: {
+        type: Boolean,
+        default: false
+    }
 }, {timestamps: true})
 
 const Admin = mongoose.model('Admin', AdminModel)
