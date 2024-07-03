@@ -1,6 +1,7 @@
 import AdminModel from "../Models/AdminModel.js";
 import bcrypt from 'bcryptjs'
 import { config } from 'dotenv'
+import jwt from 'jsonwebtoken'
 
 //---
 config()
@@ -94,10 +95,11 @@ const login = (req, res)=> {
                             message: "Error occurred"
                         })
                     }
+
                     if(result) {
-                        let token = jwt.sign({ email: user.email }, privateKey, { expiresIn: '1h' })
+                        let token = jwt.sign({ email: user.email }, process.env.PRIVATE_KEY, { expiresIn: '1h' })
                         res.json({
-                            message: "Login successfully"
+                            message: "Login successfully",
                             token: token
                         })
                     }else{
@@ -113,11 +115,14 @@ const login = (req, res)=> {
                 })
             }
         })
-        .catch(()=> {
-
+        .catch((error)=> {
+            console.log(error)
+            res.json({
+                message: "Error occurred"
+            })
         })
 
 }
 
 
-export default { add }
+export default { add, login }
