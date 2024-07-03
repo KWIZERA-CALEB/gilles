@@ -6,6 +6,7 @@ import { config } from 'dotenv'
 import bodyParser from 'body-parser'
 import SubscribersRoute from './Routes/SubscribersRoute.js'
 import FeedbackRoute from './Routes/FeedbackRoute.js'
+import ManagementRoute from './Routes/ManagementRoute.js'
 import AdminRoute from './Routes/AdminRoute.js'
 
 
@@ -39,6 +40,7 @@ connect((error)=> {
 app.use('/api', SubscribersRoute)
 app.use('/api', FeedbackRoute)
 app.use('/api', AdminRoute)
+app.use('/api', ManagementRoute)
 
 
 //---
