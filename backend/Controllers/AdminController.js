@@ -104,27 +104,6 @@ const login = (req, res)=> {
     let password = req.body.password.trim()
 
 
-    //---detect operating system
-    // let userAgent = window.navigator.userAgent,
-    //     platform = window.navigator?.userAgentData?.platform || window.navigator.platform,
-    //     macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'],
-    //     windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'],
-    //     iosPlatforms = ['iPhone', 'iPad', 'iPod'],
-    //     os = null;
-
-    //     if (macosPlatforms.indexOf(platform) !== -1) {
-    //         os = 'Mac OS';
-    //     } else if (iosPlatforms.indexOf(platform) !== -1) {
-    //         os = 'iOS';
-    //     } else if (windowsPlatforms.indexOf(platform) !== -1) {
-    //         os = 'Windows';
-    //     } else if (/Android/.test(userAgent)) {
-    //         os = 'Android';
-    //     } else if (!os && /Linux/.test(platform)) {
-    //         os = 'Linux';
-    //     }
-    //---detect operating system
-
     let device = 'Iphone'
     let date_logined = new Date()
 
