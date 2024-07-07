@@ -8,6 +8,8 @@ import SubscribersRoute from './Routes/SubscribersRoute.js'
 import FeedbackRoute from './Routes/FeedbackRoute.js'
 import ManagementRoute from './Routes/ManagementRoute.js'
 import AdminRoute from './Routes/AdminRoute.js'
+import ArticlesRoute from './Routes/ArticlesRoute.js'
+import cors from 'cors'
 
 
 //---
@@ -18,6 +20,16 @@ import AdminRoute from './Routes/AdminRoute.js'
 const app = express()
 app.use(bodyParser.json())
 config()
+app.use(cors())
+
+app.use((res, next)=> {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173')
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type,Authorization')
+    res.setHeader('Access-Control-Allow-Credentials', true)
+    next()
+
+})
 
 //---
 
@@ -41,6 +53,7 @@ app.use('/api', SubscribersRoute)
 app.use('/api', FeedbackRoute)
 app.use('/api', AdminRoute)
 app.use('/api', ManagementRoute)
+app.use('/api', ArticlesRoute)
 
 
 //---
