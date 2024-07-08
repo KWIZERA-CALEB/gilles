@@ -110,11 +110,11 @@ const login = (req, res)=> {
     const emailRegx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
     if(email == "" || password == "") {
-        res.json({
+        return res.json({
             message: "All fields are required"
         })
     }else if(!emailRegx.test(email)) {
-        res.json({
+        return res.json({
             message: "Invalid email"
         })
     }
@@ -130,36 +130,38 @@ const login = (req, res)=> {
         .then((user)=> {
             if(user) {
                 //check password
+                console.log(user)
                 bcrypt.compare(password, user.password, (error, result)=> {
                     if(error) {
-                        res.json({
+                        console.log(error)
+                        return res.json({
                             message: "Error occurred"
                         })
                     }
 
-                    if(result) {
-                        let token = jwt.sign({ email: user.email }, process.env.PRIVATE_KEY, { expiresIn: '1h' })
+                    if(!result) {
+                        let token = jwt.sign({ id: user._id }, process.env.PRIVATE_KEY, { expiresIn: '1h' })
                         res.json({
                             message: "Login successfully",
                             token: token
                         })
-                        session.save()
+                        return session.save()
                     }else{
-                        res.json({
+                        return res.json({
                             message: "Incorrect Password"
                         })
                     }
                 })
 
             }else {
-                res.json({
+                return res.json({
                     message: "No user found"
                 })
             }
         })
         .catch((error)=> {
             console.log(error)
-            res.json({
+            return res.json({
                 message: "Error occurred"
             })
         })
@@ -167,7 +169,26 @@ const login = (req, res)=> {
 }
 
 
-export default { add, login }
+const admin_info = (req, res)=> {
+    const userId = req.UserId;
+    
+    AdminModel.findById(userId)
+        .then((user) => {
+            if (!user) {
+                console.log('User not found for ID:', userId);
+                return res.status(404).json({ message: 'User not found' });
+            }
+            console.log('User found:', user);
+            res.json({ user });
+        })
+        .catch((error) => {
+            console.log('Database query error:', error);
+            res.status(500).json({ message: 'Failed to get User' });
+        });
+}
+
+
+export default { add, login, admin_info }
 
 
 
