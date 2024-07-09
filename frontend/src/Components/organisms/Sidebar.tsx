@@ -6,10 +6,19 @@ import { PuzzlePieceIcon } from '@heroicons/react/24/outline'
 import { UserGroupIcon } from '@heroicons/react/24/outline'
 import { CogIcon } from '@heroicons/react/24/outline'
 import { useLocation } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const Sidebar = () => {
     const location = useLocation();
     console.log(location.pathname);
+
+    const navigate = useNavigate()
+
+    const handleLogout = (e: any)=> {
+      e.preventDefault()
+      localStorage.removeItem('token')
+      navigate('/admin/login')
+    }
 
   return (
     <div className="w-[15%] h-full">
@@ -30,7 +39,9 @@ const Sidebar = () => {
             <div><h4 className="font-[500] text-[18px] mb-[20px] select-none text-slate-500">ACCOUNT</h4></div>
             <div className="flex flex-col space-y-[12px]">
                 <MenuLink to="/admin/profile" textColor={location.pathname === '/admin/profile' ? '#2563eb' : '#64748b'} >Profile</MenuLink>
-                <Button bg="#ef4444" textColor="#fff">Logout</Button>
+                <form onSubmit={handleLogout}>
+                  <Button bg="#ef4444" textColor="#fff">Logout</Button>
+                </form>
             </div>
         </div>
 
