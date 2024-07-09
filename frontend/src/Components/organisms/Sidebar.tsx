@@ -7,10 +7,11 @@ import { UserGroupIcon } from '@heroicons/react/24/outline'
 import { CogIcon } from '@heroicons/react/24/outline'
 import { useLocation } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
+import { ChevronLeftIcon } from '@heroicons/react/24/outline'
+
 
 const Sidebar = () => {
     const location = useLocation();
-    console.log(location.pathname);
 
     const navigate = useNavigate()
 
@@ -20,8 +21,24 @@ const Sidebar = () => {
       navigate('/admin/login')
     }
 
+    const menuStatus = localStorage.getItem('menu')
+    console.log(menuStatus)
+
+    const handleMenu = ()=> {
+        if(menuStatus === "open") {
+            localStorage.setItem('menu', 'minimized')
+        }else if(menuStatus === "minimized") {
+            localStorage.setItem('menu', 'open')
+        }else{
+            console.log('Error for menu')
+        }
+    }
+
   return (
-    <div className="w-[15%] h-full">
+    <div className="w-[15%] h-full hidden relative md:block">
+      <div className="absolute right-[-5px] top-[10px] text-white font-bold flex justify-center items-center cursor-pointer w-[25px] p-[2px] h-[25px] rounded-full bg-blue-500">
+        <button onClick={handleMenu}><ChevronLeftIcon className="size-[20px]" /></button>
+      </div>
       <div className="overflow-y-scroll flex flex-col space-y-[300px] w-full h-full bg-[#fff]">
 
         <div className="w-full p-[20px]">

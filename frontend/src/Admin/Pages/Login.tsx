@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Button from "../../Components/atoms/Buttons/Button"
 import FormInput from "../../Components/atoms/FormInput"
 import { useNavigate } from "react-router-dom"
@@ -13,6 +13,12 @@ const Login = () => {
     const [password, setPassword] = useState('')
     const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate()
+    const AppUrl = import.meta.env.VITE_APP_API_URL;
+
+    useEffect(()=> {
+        document.title = "Admin • Login"
+    }, [])
+
 
     const handleEmailChange = (e: any)=> {
         setEmail(e.target.value)
@@ -32,10 +38,11 @@ const Login = () => {
         }
 
         axios
-            .post('http://localhost:8000/api/admin_login', formData)
+            .post(`${AppUrl}/admin_login`, formData)
                 .then((result)=> {
                     console.log(result)
                     setIsLoading(false)
+                    localStorage.setItem('menu', 'open')
                     
 
                     if(result.data.message === 'No user found' || result.data.message === 'Incorrect Password' || result.data.message === 'Invalid email' || result.data.message === 'All fields are required' || result.data.message === 'Invalid email') {
