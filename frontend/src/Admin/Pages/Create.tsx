@@ -1,8 +1,13 @@
 import Navbar from "../../Components/organisms/Navbar"
 import Sidebar from "../../Components/organisms/Sidebar"
+import { useEffect } from 'react'
 
 
 const Create = () => {
+  useEffect(()=> {
+    document.title = "Admin • Create"
+  }, [])
+
   return (
     <div className="w-full h-[100vh]">
       <Navbar />

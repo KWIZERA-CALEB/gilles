@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Button from "../../Components/atoms/Buttons/Button"
 import FormInput from "../../Components/atoms/FormInput"
 import { useNavigate } from "react-router-dom"
@@ -13,6 +13,10 @@ const Login = () => {
     const [password, setPassword] = useState('')
     const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate()
+
+    useEffect(()=> {
+        document.title = "Admin • Login"
+    }, [])
 
     const handleEmailChange = (e: any)=> {
         setEmail(e.target.value)

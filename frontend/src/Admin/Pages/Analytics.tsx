@@ -1,7 +1,12 @@
 import Sidebar from "../../Components/organisms/Sidebar"
 import Navbar from "../../Components/organisms/Navbar"
+import { useEffect } from 'react'
 
 const Analytics = () => {
+  useEffect(() => {
+    document.title = "Admin • Analytics";
+  }, [])
+
   return (
     <div className="w-full h-[100vh]">
       <Navbar />
