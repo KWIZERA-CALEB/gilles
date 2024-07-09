@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 
+
 interface AdminData {
   full_name: string,
   title: string
@@ -14,6 +15,7 @@ interface AdminData {
 const Navbar = () => {
   const [adminData, setAdminData] = useState<AdminData | null>(null);
   const navigate = useNavigate()
+  const AppUrl = import.meta.env.VITE_APP_API_URL;
 
   useEffect(()=> {
     const token = localStorage.getItem('token')
@@ -24,7 +26,7 @@ const Navbar = () => {
     }
 
     axios
-      .get('http://localhost:8000/api/admin_info',{
+      .get(`${AppUrl}/admin_info`,{
         headers: {Authorization: `Bearer ${token}`}
       })
         .then((result)=> {

@@ -13,6 +13,7 @@ const Login = () => {
     const [password, setPassword] = useState('')
     const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate()
+    const AppUrl = import.meta.env.VITE_APP_API_URL;
 
     useEffect(()=> {
         document.title = "Admin • Login"
@@ -36,7 +37,7 @@ const Login = () => {
         }
 
         axios
-            .post('http://localhost:8000/api/admin_login', formData)
+            .post(`${AppUrl}/admin_login`, formData)
                 .then((result)=> {
                     console.log(result)
                     setIsLoading(false)
