@@ -76,7 +76,7 @@ const Login = () => {
     }
 
   return (
-    <div className="flex flex-col h-[100vh] w-full md:flex-row">
+    <div className="flex flex-col h-[100vh] w-full md:flex-row fixed top-0">
         <div className="w-full h-[100%] relative md:w-[50%] pl-[80px] pr-[80px] pb-[80px] pt-[80px]">
             <div className="flex flex-col items-start mb-[40px]">
                 <div><img src="/images/logo1b.png" className="w-[160px] ml-[-22px] mb-[15px]" alt="Gilles Logo" /></div>
