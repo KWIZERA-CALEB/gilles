@@ -19,6 +19,7 @@ const Login = () => {
         document.title = "Admin • Login"
     }, [])
 
+
     const handleEmailChange = (e: any)=> {
         setEmail(e.target.value)
     }
@@ -41,6 +42,7 @@ const Login = () => {
                 .then((result)=> {
                     console.log(result)
                     setIsLoading(false)
+                    localStorage.setItem('menu', 'open')
                     
 
                     if(result.data.message === 'No user found' || result.data.message === 'Incorrect Password' || result.data.message === 'Invalid email' || result.data.message === 'All fields are required' || result.data.message === 'Invalid email') {

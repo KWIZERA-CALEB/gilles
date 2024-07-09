@@ -13,10 +13,10 @@ config()
 const add = (req, res)=> {
 
     // remove any whitespaces from inputs
-    let full_name = req.body.full_name.trim()
-    let email = req.body.email.trim()
-    let password = req.body.password.trim()
-    let title = req.body.title.trim()
+    let full_name = req.body.full_name
+    let email = req.body.email
+    let password = req.body.password
+    let title = req.body.title
 
     const emailRegx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -100,9 +100,8 @@ const add = (req, res)=> {
 }
 
 const login = (req, res)=> {
-    let email = req.body.email.trim()
-    let password = req.body.password.trim()
-
+    let email = req.body.email
+    let password = req.body.password
 
     let device = 'Iphone'
     let date_logined = new Date()
@@ -119,19 +118,19 @@ const login = (req, res)=> {
         })
     }
 
-
     let session = new LoginSessionsModel({
         email: email,
         device: device,
         date_logined: date_logined,
     })
 
-    AdminModel.findOne({$or: [{email: email}]})
+    AdminModel.findOne({ email: email })
         .then((user)=> {
             if(user) {
-                //check password
-                console.log(user)
-                bcrypt.compare(password, user.password, (error, result)=> {
+                console.log('User found:', user.email);
+                console.log('Stored hashed password:', user.password);
+                console.log('Password provided:', password);
+                bcrypt.compare(password, user.password, (error, isMatch)=> {
                     if(error) {
                         console.log(error)
                         return res.json({
@@ -139,33 +138,41 @@ const login = (req, res)=> {
                         })
                     }
 
-                    if(!result) {
+                    console.log('Password match result:', isMatch);
+
+                    if(isMatch) {
                         let token = jwt.sign({ id: user._id }, process.env.PRIVATE_KEY, { expiresIn: '1h' })
+                        session.save()
+                            .then(() => {
+                                res.json({
+                                    message: "Login successful",
+                                    token: token
+                                })
+                            })
+                            .catch((error) => {
+                                console.log(error)
+                                res.json({
+                                    message: "Login successful, but failed to save session"
+                                })
+                            })
+                    } else {
                         res.json({
-                            message: "Login successfully",
-                            token: token
-                        })
-                        return session.save()
-                    }else{
-                        return res.json({
                             message: "Incorrect Password"
                         })
                     }
                 })
-
-            }else {
-                return res.json({
+            } else {
+                res.json({
                     message: "No user found"
                 })
             }
         })
         .catch((error)=> {
             console.log(error)
-            return res.json({
+            res.json({
                 message: "Error occurred"
             })
         })
-
 }
 
 

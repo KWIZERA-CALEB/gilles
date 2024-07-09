@@ -45,9 +45,9 @@ const Navbar = () => {
   }, [navigate])
 
   return (
-    <div className="w-full h-[80px] bg-[#fff] fixed left-0 right-0 top-0 z-[20px] border-b border-solid border-slate-300 p-[10px] flex flex-row justify-between items-center">
+    <div className="w-full h-[80px] bg-[#fff] fixed left-0 right-0 top-0 z-[3000] border-b border-solid border-slate-300 p-[10px] flex flex-row justify-between items-center">
       <div>
-        <img src="/images/logo1b.png" className="w-[160px]" alt="Gilles Logo" />
+        <img src="/images/logo1b.png" className="w-[160px] z-[3000]" alt="Gilles Logo" />
       </div>
       <div className="flex flex-row space-x-[12px] items-center">
         <div className="bg-white w-[50px] h-[50px] relative border-[1px] border-solid border-slate-300 flex justify-center items-center font-bold text-slate-300 rounded-[15px] cursor-pointer hover:border-slate-500 hover:text-slate-500">
@@ -59,12 +59,12 @@ const Navbar = () => {
               <>
                 <div className="bg-blue-500 text-white font-bold flex justify-center items-center w-[50px] h-[50px] rounded-full cursor-pointer p-[5px]">C</div>
                 <Link to={'/admin/profile'}>
-                  <div className="w-[150px] pl-[6px] pr-[6px] pt-[2px] pb-[2px] flex flex-col space-y-[2px] cursor-pointer">
+                  <div className="w-[80px] pl-[6px] pr-[6px] pt-[2px] pb-[2px] flex flex-col space-y-[2px] cursor-pointer md:w-[150px]">
                       <div>
-                          <div><h4 className="font-[500] text-[18px] text-slate-500">{adminData.full_name}</h4></div>
+                          <div><h4 className="font-[500] text-[16px] text-slate-500 capitalize md:text-[18px]">{adminData.full_name}</h4></div>
                       </div>
                       <div className="mt-[-4px]">
-                          <div><p className="font-[300] text-[16px] text-slate-500/[80%] capitalize">{adminData.title}</p></div>
+                          <div><p className="font-[300] text-[14px] text-slate-500/[80%] capitalize md:text-[16px]">{adminData.title}</p></div>
                       </div>
                   </div>
                 </Link>
