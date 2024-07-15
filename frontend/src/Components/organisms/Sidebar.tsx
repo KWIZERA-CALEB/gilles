@@ -39,7 +39,7 @@ const Sidebar = () => {
       <div className="absolute right-[-5px] top-[10px] text-white font-bold flex justify-center items-center cursor-pointer w-[25px] p-[2px] h-[25px] rounded-full bg-blue-500">
         <button onClick={handleMenu}><ChevronLeftIcon className="size-[20px]" /></button>
       </div>
-      <div className="overflow-y-scroll flex flex-col space-y-[300px] w-full h-full bg-[#fff]">
+      <div className="overflow-y-scroll flex flex-col space-y-[300px] lg:justify-between w-full h-full bg-[#fff]">
 
         <div className="w-full p-[20px]">
             <div><h4 className="font-[500] text-[18px] mb-[20px] select-none text-slate-500">MENU</h4></div>
