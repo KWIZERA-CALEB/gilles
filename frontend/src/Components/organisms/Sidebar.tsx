@@ -36,7 +36,7 @@ const Sidebar = () => {
 
   return (
     <div className="w-[15%] h-full hidden relative md:block">
-      <div className="absolute right-[-5px] top-[10px] text-white font-bold flex justify-center items-center cursor-pointer w-[25px] p-[2px] h-[25px] rounded-full bg-blue-500">
+      <div className="absolute right-[-5px] hidden top-[10px] text-white font-bold flex justify-center items-center cursor-pointer w-[25px] p-[2px] h-[25px] rounded-full bg-blue-500">
         <button onClick={handleMenu}><ChevronLeftIcon className="size-[20px]" /></button>
       </div>
       <div className="overflow-y-scroll flex flex-col space-y-[300px] lg:justify-between w-full h-full bg-[#fff]">
