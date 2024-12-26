@@ -7,6 +7,7 @@
 html, body {
     background-color: #121213;
     color: #fff;
+    min-height: auto;
     height: 100%;
 }
 
